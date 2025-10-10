@@ -1,0 +1,43 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="100" fill="url(#gradient)"/>
+  
+  <!-- Face -->
+  <circle cx="100" cy="85" r="35" fill="#FDBCB4"/>
+  
+  <!-- Hair -->
+  <path d="M65 75C65 55 80 40 100 40C120 40 135 55 135 75C135 65 130 55 125 50C120 45 110 42 100 42C90 42 80 45 75 50C70 55 65 65 65 75Z" fill="#8B4513"/>
+  <path d="M60 80C60 70 65 60 75 55C85 50 95 48 100 48C105 48 115 50 125 55C135 60 140 70 140 80C140 85 138 90 135 95C130 100 125 105 120 108C115 110 105 112 100 112C95 112 85 110 80 108C75 105 70 100 65 95C62 90 60 85 60 80Z" fill="#D2691E"/>
+  
+  <!-- Eyes -->
+  <circle cx="90" cy="80" r="3" fill="#000"/>
+  <circle cx="110" cy="80" r="3" fill="#000"/>
+  
+  <!-- Eyelashes -->
+  <path d="M87 77L89 75M91 76L93 74M87 83L89 85M91 84L93 86" stroke="#000" stroke-width="1"/>
+  <path d="M107 77L109 75M111 76L113 74M107 83L109 85M111 84L113 86" stroke="#000" stroke-width="1"/>
+  
+  <!-- Nose -->
+  <circle cx="100" cy="88" r="1.5" fill="#F4A460"/>
+  
+  <!-- Lips -->
+  <ellipse cx="100" cy="95" rx="4" ry="2" fill="#FF69B4"/>
+  
+  <!-- Body/Shoulders -->
+  <ellipse cx="100" cy="160" rx="40" ry="30" fill="#FDBCB4"/>
+  
+  <!-- Clothing -->
+  <path d="M70 140C70 140 85 135 100 135C115 135 130 140 130 140L130 180C130 185 125 190 120 190L80 190C75 190 70 185 70 180Z" fill="#FF1493"/>
+  
+  <!-- Necklace -->
+  <circle cx="100" cy="125" r="3" fill="#FFD700"/>
+  <path d="M85 122C90 120 95 119 100 119C105 119 110 120 115 122" stroke="#FFD700" stroke-width="2" fill="none"/>
+  
+  <!-- Gradient Definition -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF69B4;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#8A2BE2;stop-opacity:0.3" />
+    </linearGradient>
+  </defs>
+</svg>
