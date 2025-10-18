@@ -35,18 +35,54 @@ export async function generateMetadata({ params }) {
   const canonicalBase = process.env.NEXT_PUBLIC_SITE_URL || 'https://spitxxx.com'
   const titleSlug = slugify(title)
   const canonical = `${canonicalBase}/video/${id}${titleSlug ? `-${titleSlug}` : ''}`
+  const imageUrl = video?.imageUrl || `${canonicalBase}/og-image.jpg`
+
+  // Generate comprehensive keywords
+  const keywords = [
+    ...(Array.isArray(video?.tags) ? video.tags : []),
+    ...(Array.isArray(video?.name) ? video.name : []),
+    'spitxxx', 'premium video', 'adult entertainment'
+  ].filter(Boolean).join(', ')
 
   return {
     title,
     description,
+    keywords,
     alternates: { canonical },
     openGraph: {
       title,
       description,
       url: canonical,
+      siteName: 'Spitxxx',
       type: 'video.other',
-      images: video?.imageUrl ? [{ url: video.imageUrl }] : undefined,
+      locale: 'en_US',
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        }
+      ],
+      videos: video?.iframeUrl ? [
+        {
+          url: video.iframeUrl,
+          width: 1280,
+          height: 720,
+        }
+      ] : undefined,
     },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imageUrl],
+      creator: '@spitxxx',
+    },
+    other: {
+      'video:duration': video?.minutes ? `${video.minutes * 60}` : undefined,
+      'video:release_date': video?.createdAt || undefined,
+    }
   }
 }
 
@@ -107,8 +143,33 @@ export default async function VideoDetailPage({ params, searchParams }) {
   const totalRelatedPages = Math.max(1, Math.ceil(totalRelated / pageSize))
   const pagedRelated = mergedRelated.slice((relatedPage - 1) * pageSize, relatedPage * pageSize)
 
+  // Structured data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": video.titel || video.title || 'Video',
+    "description": video.desc || video.metatitel || 'Watch premium video on Spitxxx',
+    "thumbnailUrl": video.imageUrl || '',
+    "uploadDate": video.createdAt || new Date().toISOString(),
+    "duration": video.minutes ? `PT${video.minutes}M` : undefined,
+    "contentUrl": video.link || '',
+    "embedUrl": video.iframeUrl || undefined,
+    "interactionStatistic": {
+      "@type": "InteractionCounter",
+      "interactionType": { "@type": "WatchAction" },
+      "userInteractionCount": video.views || 0
+    }
+  }
+
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <>
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {relatedPage === 1 && (
         <>
           <h1 className="text-2xl font-semibold mb-4">{video.titel || 'Video'}</h1>
@@ -166,6 +227,7 @@ export default async function VideoDetailPage({ params, searchParams }) {
           <Pagination basePath={`/video/${id}-${slugify(video?.titel || video?.title || '')}?`} currentPage={relatedPage} totalPages={totalRelatedPages} />
         </div>
       )}
-    </div>
+      </div>
+    </>
   )
 }
