@@ -3,11 +3,11 @@ import { api } from './lib/api'
 import VideoCard from './components/VideoCard'
 import Pagination from './components/Pagination'
 
-export const revalidate = 60
+export const revalidate = 300 // 5 minutes - better for SEO crawling
 
 export const metadata = {
-  title: 'spitxxx Free XXXHD Adult Content Videos And Free Porn Videos',
-  description: 'fry99 hqpornee freeomovie 3gp king adelt movies auntymaza badwap com bf full hd bf hd video bfxxx bigfucktv xxxhd spanbank borwap com pornve wowuncut| spitxxx',
+  title: 'Spitxxx - Free Premium HD Porn Videos & Adult Entertainment',
+  description: 'Watch free premium HD porn videos on Spitxxx. Thousands of adult entertainment videos featuring top pornstars, updated daily. Stream high-quality XXX content for free.',
   alternates: { canonical: '/' },
 }
 

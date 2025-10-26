@@ -1,4 +1,4 @@
-﻿import { NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 
 export const revalidate = 3600
 
@@ -11,17 +11,7 @@ export async function GET() {
     '/categories',
     '/tags',
     '/pornstars',
-    '/contact',
-    '/privacy',
-    '/terms',
-    '/new-videos',
-    '/top-videos',
-    '/most-liked',
-    '/new-content',
     '/search',
-    '/indian',
-    '/hijabi',
-    '/muslim',
   ]
 
   const urlEntries = staticUrls.map(url => `

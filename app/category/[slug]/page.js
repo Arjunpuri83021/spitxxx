@@ -1,6 +1,8 @@
 import { api } from '../../lib/api'
 import VideoCard from '../../components/VideoCard'
 import Pagination from '../../components/Pagination'
+import ExpandableContent from '../../components/ExpandableContent'
+import { generateCategoryContent } from '../../lib/contentGenerator'
 
 export const revalidate = 60
 
@@ -135,19 +137,42 @@ export default async function CategoryPage({ params, searchParams }) {
   const query = categorySearch[slug] || slug.replace(/-/g, ' ')
   const data = await api.searchPosts(query, page, 16, '').catch(() => ({ records: [], totalPages: 1, totalRecords: 0 }))
   const titleBase = categoryTitles[slug] || slug.replace(/-/g, ' ')
+  const list = data.records || []
+  const totalRecords = data.totalRecords || 0
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold">{titleBase} Videos</h1>
-        <p className="text-gray-400 mt-1 text-sm">Showing page {page} of {data.totalPages || 1} ({data.totalRecords || 0} total videos)</p>
-      </div>
+      {page === 1 && (
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold">
+            {titleBase} Porn Videos
+          </h1>
+          <p className="text-gray-400 mt-2 text-sm">{totalRecords} premium HD videos</p>
+        </div>
+      )}
+
+      {page > 1 && (
+        <div className="mb-6">
+          <h1 className="text-2xl font-semibold">{titleBase} Videos - Page {page}</h1>
+          <p className="text-gray-400 mt-1 text-sm">Showing page {page} of {data.totalPages || 1} ({totalRecords} total videos)</p>
+        </div>
+      )}
+
       <div className="grid video-grid">
-        {(data.records || []).map((v, idx) => (
+        {list.map((v, idx) => (
           <VideoCard key={v._id || idx} video={v} />
         ))}
       </div>
+
       <Pagination basePath={`/category/${slug}`} currentPage={page} totalPages={data.totalPages || 1} />
+
+      {page === 1 && (
+        <ExpandableContent 
+          title={`About ${titleBase} Videos`}
+          content={generateCategoryContent(titleBase, list, totalRecords)}
+          defaultExpanded={false}
+        />
+      )}
     </div>
   )
 }

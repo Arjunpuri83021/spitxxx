@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Block admin and API routes
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://spitxxx.com/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1
